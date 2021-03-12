@@ -15,3 +15,5 @@ type StateError = {
   status: ERROR;
   error: string;
 };
+
+export type States = StatePending | StateError | StateSuccess;
