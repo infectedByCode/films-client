@@ -1,14 +1,20 @@
 import React, { BaseSyntheticEvent, useState } from 'react';
 import { States } from '../../ts/common/states';
+import * as api from '../../utils/apiClient';
 
 function RegisterPage() {
   const [state, setState] = useState<States>({
     status: 'success',
   });
 
-  const handleSubmit = (e: BaseSyntheticEvent): void => {
+  const handleSubmit = async (e: BaseSyntheticEvent): Promise<void> => {
     e.preventDefault();
-    setState({ status: 'error', error: 'Invalid data' });
+    const result = await api.registerUser();
+    if (result?.status !== 201) {
+      setState({ status: 'error', error: 'Invalid data' });
+    } else {
+      setState({ status: 'success' });
+    }
   };
 
   if (state.status === 'pending') return <h1>Loading</h1>;
