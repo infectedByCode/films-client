@@ -6,11 +6,21 @@ const { apiUrl } = createConfig();
 
 export const handlers = [
   rest.post<MockPostUserRequest>(`${apiUrl}/api/users`, (req, res, ctx) => {
-    const { username } = req.body;
-
-    if (req.body.username === '') {
-      return res(ctx.status(400));
+    if (process.env.THROW_ERROR) {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          status: 400,
+          statusText: 'error',
+        })
+      );
     }
-    return res(ctx.status(201));
+    return res(
+      ctx.status(201),
+      ctx.json({
+        status: 201,
+        data: [],
+      })
+    );
   }),
 ];

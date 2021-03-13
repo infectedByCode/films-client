@@ -2,8 +2,10 @@ import { createConfig } from '../config';
 const { apiUrl } = createConfig();
 
 export const registerUser = (): any => {
-  fetch(`${apiUrl}/api/users`, {
+  const data = {};
+  return fetch(`${apiUrl}/api/users`, {
     method: 'post',
+    body: JSON.stringify(data),
   })
     .then((response) => {
       if (response.status !== 201) {
@@ -13,6 +15,6 @@ export const registerUser = (): any => {
     })
     .then((data) => {
       // do something
-      console.log(data);
+      return data;
     });
 };

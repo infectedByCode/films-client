@@ -13,9 +13,21 @@ describe('#RegisterPage', () => {
     screen.getByRole('button', { name: 'Register' });
   });
   test('it calls the handleSubmit method and renders an error alert on error', async () => {
+    process.env.THROW_ERROR = 'true';
     render(<RegisterPage />);
     const submitButton = screen.getByRole('button', { name: 'Register' });
     act(() => userEvent.click(submitButton));
-    await screen.findByText(/error/);
+    await screen.findByText(/error/i);
+  });
+  test('it calls the handleSubmit method and renders a success message if post is a succes', async () => {
+    render(<RegisterPage />);
+    userEvent.type(screen.getByLabelText('Username'), 'myname');
+    userEvent.type(screen.getByLabelText('Email'), 'myemail@me.com');
+    userEvent.type(screen.getByLabelText('Password'), 'badpassword');
+    userEvent.type(screen.getByLabelText('Confirm password'), 'badpassword');
+
+    const submitButton = screen.getByRole('button', { name: 'Register' });
+    act(() => userEvent.click(submitButton));
+    await screen.findByText(/success/i);
   });
 });

@@ -5,15 +5,16 @@ import * as api from '../../utils/apiClient';
 function RegisterPage() {
   const [state, setState] = useState<States>({
     status: 'success',
+    data: null,
   });
 
   const handleSubmit = async (e: BaseSyntheticEvent): Promise<void> => {
     e.preventDefault();
     const result = await api.registerUser();
-    if (result?.status !== 201) {
-      setState({ status: 'error', error: 'Invalid data' });
+    if (result.status !== 201) {
+      setState({ status: 'error', error: 'Error during registration' });
     } else {
-      setState({ status: 'success' });
+      setState({ status: 'success', data: result.data });
     }
   };
 
@@ -31,19 +32,22 @@ function RegisterPage() {
             <label htmlFor='email' className='mt-4'>
               Email
             </label>
-            <input type='text' id='email' className='shadow p-2 focus:ring rounded' />
+            <input type='email' id='email' className='shadow p-2 focus:ring rounded' />
             <label htmlFor='password' className='mt-4'>
               Password
             </label>
-            <input type='text' id='password' className='shadow p-2 focus:ring rounded' />
+            <input type='password' id='password' className='shadow p-2 focus:ring rounded' />
             <label htmlFor='confirm' className='mt-4'>
               Confirm password
             </label>
-            <input type='text' id='confirm' className='shadow p-2 focus:ring rounded' />
+            <input type='password' id='confirm' className='shadow p-2 focus:ring rounded' />
             <button className='bg-gray-400 mt-6 p-4 rounded focus:ring'>Register</button>
-            {state.status === 'error' ? (
+            {state.status === 'error' && (
               <p className='rounded bg-red-500 mt-4 p-4 text-center'>Sorry. It's us with the error.</p>
-            ) : null}
+            )}
+            {state.status === 'success' && state?.data && (
+              <p className='rounded bg-green-500 mt-4 p-4 text-center'>Success. Thank you!.</p>
+            )}
           </fieldset>
         </form>
       </main>

@@ -8,7 +8,7 @@ type StatePending = {
 
 type StateSuccess = {
   status: SUCCESS;
-  [data: string]: Array;
+  [data: string]: Array | null;
 };
 
 type StateError = {
