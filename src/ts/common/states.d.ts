@@ -17,3 +17,9 @@ type StateError = {
 };
 
 export type States = StatePending | StateError | StateSuccess;
+
+// Registration page states
+type RegistationForm = {
+  email: string;
+};
+export type RegistrationState = (StatePending | StateError | StateSuccess) & RegistationForm;

@@ -1,9 +1,11 @@
-import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RegisterPage from './RegisterPage';
 
 describe('#RegisterPage', () => {
+  afterEach(() => {
+    delete process.env.THROW_ERROR;
+  });
   test('it renders a register page', () => {
     render(<RegisterPage />);
     screen.getByLabelText('Username');
@@ -29,5 +31,15 @@ describe('#RegisterPage', () => {
     const submitButton = screen.getByRole('button', { name: 'Register' });
     act(() => userEvent.click(submitButton));
     await screen.findByText(/success/i);
+  });
+  test('it validates the form and shows error message', async () => {
+    render(<RegisterPage />);
+
+    userEvent.type(screen.getByLabelText('Email'), 'me.com');
+
+    const submitButton = screen.getByRole('button', { name: 'Register' });
+    act(() => userEvent.click(submitButton));
+
+    await screen.findByText(/error/i);
   });
 });
