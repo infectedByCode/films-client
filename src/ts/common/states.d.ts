@@ -1,3 +1,5 @@
+import { FilmList, RegistationForm } from './pageStates';
+
 type PENDING = 'pending';
 type SUCCESS = 'success';
 type ERROR = 'error';
@@ -18,11 +20,7 @@ type StateError = {
 
 export type States = StatePending | StateError | StateSuccess;
 
-// Registration page states
-type RegistationForm = {
-  username: string;
-  email: string;
-  password: string;
-  confirmedPassword: string;
-};
+// page states
 export type RegistrationState = (StatePending | StateError | StateSuccess) & RegistationForm;
+
+export type FilmListState = (StatePending | StateError | StateSuccess) & FilmList;
