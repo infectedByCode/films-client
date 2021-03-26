@@ -17,7 +17,7 @@ function RegisterPage() {
     const { email, username, password, confirmedPassword } = state;
     const isValid = isEmail(email || '') && isValidPassword(password || '') && isAlpha(username || '');
     const isPasswordConfirmed = password === confirmedPassword;
-    if (!isValid) {
+    if (!isValid || !isPasswordConfirmed) {
       const errorState: StateError = { status: 'error', error: 'Error: Please check the form.' };
       setState({ ...state, ...errorState });
       return false;

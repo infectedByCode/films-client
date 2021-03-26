@@ -42,4 +42,17 @@ describe('#RegisterPage', () => {
 
     await screen.findByText(/error/i);
   });
+  test('it shows error message if passwords do not match', async () => {
+    render(<RegisterPage />);
+
+    userEvent.type(screen.getByLabelText('Username'), 'myname');
+    userEvent.type(screen.getByLabelText('Email'), 'myemail@email.com');
+    userEvent.type(screen.getByLabelText('Password'), 'password12$A');
+    userEvent.type(screen.getByLabelText('Confirm password'), 'password12$AA');
+
+    const submitButton = screen.getByRole('button', { name: 'Register' });
+    act(() => userEvent.click(submitButton));
+
+    await screen.findByText(/error/i);
+  });
 });
