@@ -20,6 +20,9 @@ export type States = StatePending | StateError | StateSuccess;
 
 // Registration page states
 type RegistationForm = {
+  username: string;
   email: string;
+  password: string;
+  confirmedPassword: string;
 };
 export type RegistrationState = (StatePending | StateError | StateSuccess) & RegistationForm;
