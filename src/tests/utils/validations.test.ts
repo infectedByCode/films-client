@@ -1,4 +1,4 @@
-import * as validation from './validations';
+import * as validation from '../../utils/validations';
 
 describe('#validations', () => {
   describe('#isEmail', () => {
