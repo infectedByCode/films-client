@@ -16,5 +16,5 @@ type Film = {
 };
 
 export type FilmList = {
-  films: Film[];
+  data: Film[] | null;
 };

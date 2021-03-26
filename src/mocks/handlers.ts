@@ -23,4 +23,27 @@ export const handlers = [
       })
     );
   }),
+  rest.get<MockPostUserRequest>(`${apiUrl}/api/films`, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        films: [
+          {
+            uid: '1234',
+            title: 'film of a lifetime',
+            description: 'an average film really',
+            year: 1999,
+            keywords: 'action,romcom,funny',
+          },
+          {
+            uid: '5678',
+            title: 'film that was a flop',
+            description: 'an bad film that destroyed their careers',
+            year: 2021,
+            keywords: 'flop,action',
+          },
+        ],
+      })
+    );
+  }),
 ];
