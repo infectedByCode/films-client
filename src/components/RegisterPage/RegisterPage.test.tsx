@@ -24,9 +24,9 @@ describe('#RegisterPage', () => {
   test('it calls the handleSubmit method and renders a success message if post is a succes', async () => {
     render(<RegisterPage />);
     userEvent.type(screen.getByLabelText('Username'), 'myname');
-    userEvent.type(screen.getByLabelText('Email'), 'myemail@me.com');
-    userEvent.type(screen.getByLabelText('Password'), 'badpassword');
-    userEvent.type(screen.getByLabelText('Confirm password'), 'badpassword');
+    userEvent.type(screen.getByLabelText('Email'), 'myemail@email.com');
+    userEvent.type(screen.getByLabelText('Password'), 'password12$A');
+    userEvent.type(screen.getByLabelText('Confirm password'), 'password12$A');
 
     const submitButton = screen.getByRole('button', { name: 'Register' });
     act(() => userEvent.click(submitButton));
