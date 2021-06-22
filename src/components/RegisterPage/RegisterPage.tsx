@@ -1,25 +1,53 @@
-import React, { BaseSyntheticEvent, useState } from 'react';
+import { BaseSyntheticEvent, useState } from 'react';
+import { useHistory } from 'react-router';
 import { RegistrationState, StateError } from '../../ts/common/states';
 import * as api from '../../utils/apiClient';
 import { isAlpha, isEmail, isValidPassword } from '../../utils/validations';
 
 function RegisterPage() {
+  const history = useHistory();
   const [state, setState] = useState<RegistrationState>({
     status: 'success',
     data: null,
     email: '',
     username: '',
     password: '',
-    confirmedPassword: '',
+    confirmedPassword: ''
   });
 
   const validateForm = (): boolean => {
+    let errorState: StateError | null = null;
     const { email, username, password, confirmedPassword } = state;
-    const isValid = isEmail(email || '') && isValidPassword(password || '') && isAlpha(username || '');
+    if (!isAlpha(username || '')) {
+      errorState = {
+        status: 'error',
+        error: 'Error: Username can only be alphanumeric characters.'
+      };
+    }
+
+    if (!isEmail(email || '')) {
+      errorState = {
+        status: 'error',
+        error: 'Error: Invalid email address.'
+      };
+    }
+
+    if (!isValidPassword(password || '')) {
+      errorState = {
+        status: 'error',
+        error: 'Error: Password criteria not met.'
+      };
+    }
     const isPasswordConfirmed = password === confirmedPassword;
-    if (!isValid || !isPasswordConfirmed) {
-      const errorState: StateError = { status: 'error', error: 'Error: Please check the form.' };
-      setState({ ...state, ...errorState });
+    if (!isPasswordConfirmed) {
+      errorState = {
+        status: 'error',
+        error: 'Error: Please check the form.'
+      };
+    }
+
+    if (errorState) {
+      setState((state) => ({ ...state, errorState }));
       return false;
     }
     return true;
@@ -27,18 +55,27 @@ function RegisterPage() {
 
   const handleInput = (e: BaseSyntheticEvent, field: string): void => {
     const value = e.target.value || '';
-    setState({ ...state, [field]: value });
+    setState((state) => ({ ...state, [field]: value }));
   };
 
-  const handleSubmit = async (e: BaseSyntheticEvent): Promise<void | undefined> => {
+  const handleSubmit = async (
+    e: BaseSyntheticEvent
+  ): Promise<void | undefined> => {
     e.preventDefault();
+
     const isValid = validateForm();
     if (!isValid) return;
     const result = await api.registerUser();
     if (result.status !== 201) {
-      setState({ ...state, status: 'error', error: "Error: Sorry, it's not you, it's us." });
+      setState((state) => ({
+        ...state,
+        status: 'error',
+        error: "Error: Sorry, it's not you, it's us."
+      }));
     } else {
-      setState({ ...state, status: 'success', data: result.data });
+      setState((state) => ({ ...state, status: 'success', data: result.data }));
+
+      history.push('/films');
     }
   };
 
@@ -58,6 +95,8 @@ function RegisterPage() {
               onChange={(e) => handleInput(e, 'username')}
               value={state.username}
               className='shadow p-2 focus:ring rounded'
+              autoFocus
+              autoComplete='off'
             />
             <label htmlFor='email' className='mt-4'>
               Email
@@ -89,10 +128,18 @@ function RegisterPage() {
               value={state.confirmedPassword}
               className='shadow p-2 focus:ring rounded'
             />
-            <button className='bg-gray-400 mt-6 p-4 rounded focus:ring'>Register</button>
-            {state.status === 'error' && <p className='rounded bg-red-500 mt-4 p-4 text-center'>{state.error}</p>}
+            <button className='bg-gray-400 mt-6 p-4 rounded focus:ring'>
+              Register
+            </button>
+            {state.status === 'error' && (
+              <p className='rounded bg-red-500 mt-4 p-4 text-center'>
+                {state.error}
+              </p>
+            )}
             {state.status === 'success' && state?.data && (
-              <p className='rounded bg-green-500 mt-4 p-4 text-center'>Success. Thank you!.</p>
+              <p className='rounded bg-green-500 mt-4 p-4 text-center'>
+                Success. Thank you!.
+              </p>
             )}
           </fieldset>
         </form>

@@ -21,6 +21,8 @@ type StateError = {
 export type States = StatePending | StateError | StateSuccess;
 
 // page states
-export type RegistrationState = (StatePending | StateError | StateSuccess) & RegistationForm;
+export type RegistrationState = (StatePending | StateError | StateSuccess) &
+  RegistationForm;
 
-export type FilmListState = (StatePending | StateError | StateSuccess) & FilmList;
+export type FilmListState = (StatePending | StateError | StateSuccess) &
+  FilmList;
