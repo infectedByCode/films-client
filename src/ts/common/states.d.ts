@@ -15,7 +15,7 @@ type StateSuccess = {
 
 type StateError = {
   status: ERROR;
-  error: string;
+  error?: string;
 };
 
 export type States = StatePending | StateError | StateSuccess;

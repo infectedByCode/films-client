@@ -47,7 +47,10 @@ function RegisterPage() {
     }
 
     if (errorState) {
-      setState((state) => ({ ...state, errorState }));
+      setState((state) => ({
+        ...state,
+        ...errorState
+      }));
       return false;
     }
     return true;
