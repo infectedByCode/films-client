@@ -9,3 +9,8 @@ jest.mock('react-router', () => ({
   ...(jest.requireActual('react-router') as any),
   useHistory: () => ({ push: jest.fn() })
 }));
+
+jest.mock('react-redux', () => ({
+  ...(jest.requireActual('react-redux') as any),
+  useDispatch: () => jest.fn()
+}));
