@@ -2,13 +2,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import FilmList from './components/FilmList/FilmList';
+import Header from './components/Header/Header';
 import { store } from './store';
 
 function App() {
   return (
     <Provider store={store}>
-      <div className='container mx-auto py-20 px-10'>
-        <Router>
+      <Router>
+        <Header />
+        <div className='container mx-auto py-20 px-10'>
           <Switch>
             <Route exact path='/'>
               <RegisterPage />
@@ -20,8 +22,8 @@ function App() {
               <FilmList />
             </Route>
           </Switch>
-        </Router>
-      </div>
+        </div>
+      </Router>
     </Provider>
   );
 }
