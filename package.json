@@ -26,6 +26,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "test:coverage": "npm test -- --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -58,5 +59,14 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{ts,tsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/*.d.ts",
+      "!**/mocks/**"
+    ]
   }
 }
