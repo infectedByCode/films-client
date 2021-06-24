@@ -86,6 +86,7 @@ function RegisterPage() {
   else
     return (
       <main>
+        <h1>Register</h1>
         <form onSubmit={handleSubmit}>
           <fieldset className='flex flex-col'>
             <legend>Please complete the registration.</legend>
