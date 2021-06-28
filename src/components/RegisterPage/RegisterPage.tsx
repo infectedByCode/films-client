@@ -42,7 +42,7 @@ function RegisterPage() {
     if (!isPasswordConfirmed) {
       errorState = {
         status: 'error',
-        error: 'Error: Please check the form.'
+        error: 'Error: Passwords do not match.'
       };
     }
 
