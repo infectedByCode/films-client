@@ -20,13 +20,13 @@ function FilmList() {
   }, [dispatch]);
 
   return (
-    <main>
+    <section>
       <h1>Hello, Films</h1>
       <ol className='grid grid-cols-1 gap-4'>
         {state.data &&
           state.data.map((film) => <FilmCard film={film} key={film.uid} />)}
       </ol>
-    </main>
+    </section>
   );
 }
 

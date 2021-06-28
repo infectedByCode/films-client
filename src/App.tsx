@@ -10,7 +10,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Header />
-        <div className='container mx-auto py-20 px-10'>
+        <main id='mainContent' className='container mx-auto py-20 px-10'>
           <Switch>
             <Route exact path='/'>
               <RegisterPage />
@@ -22,7 +22,7 @@ function App() {
               <FilmList />
             </Route>
           </Switch>
-        </div>
+        </main>
       </Router>
     </Provider>
   );

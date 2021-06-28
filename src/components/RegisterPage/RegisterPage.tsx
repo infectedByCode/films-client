@@ -85,7 +85,7 @@ function RegisterPage() {
   if (state.status === 'pending') return <h1>Loading</h1>;
   else
     return (
-      <main>
+      <section>
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
           <fieldset className='flex flex-col'>
@@ -99,7 +99,6 @@ function RegisterPage() {
               onChange={(e) => handleInput(e, 'username')}
               value={state.username}
               className='shadow p-2 focus:ring rounded'
-              autoFocus
               autoComplete='off'
             />
             <label htmlFor='email' className='mt-4'>
@@ -147,7 +146,7 @@ function RegisterPage() {
             )}
           </fieldset>
         </form>
-      </main>
+      </section>
     );
 }
 
